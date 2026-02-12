@@ -10,3 +10,8 @@ import { twMerge } from 'tailwind-merge'
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+export function formatDate(date: string | Date, config: Intl.DateTimeFormatOptions) {
+  const formatter = new Intl.DateTimeFormat('en-US', config)
+  return formatter.format(new Date(date))
+}
