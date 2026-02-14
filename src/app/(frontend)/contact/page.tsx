@@ -9,7 +9,7 @@ import { EditorialCTA } from '@/components/custom/sections/editorial-cta'
 
 export const metadata: Metadata = {
   title: 'Contact Us',
-  description: 'Get in touch with the Innobotics team.',
+  description: 'Get in touch with the InnoBotics team.',
 }
 
 export default function ContactPage() {

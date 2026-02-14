@@ -1,5 +1,5 @@
 export const SITE_CONFIG = {
-  name: 'Innobotics',
+  name: 'InnoBotics',
   description: 'A community of builder`s, innovators, and future leaders.',
   url: 'https://doit.club',
   ogImage: 'https://doit.club/og.png',

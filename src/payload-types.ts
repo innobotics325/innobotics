@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    members: Member;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -94,6 +95,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    members: MembersSelect<false> | MembersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -774,6 +776,45 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "members".
+ */
+export interface Member {
+  id: number;
+  /**
+   * Manual sort order (e.g. 1, 2, 3...)
+   */
+  sort?: number | null;
+  name: string;
+  /**
+   * Role or designation (e.g. President, Tech Lead)
+   */
+  tag: string;
+  /**
+   * Image URL for the profile image
+   */
+  imageUrl: string;
+  description: string;
+  /**
+   * GitHub username (optional)
+   */
+  githubId?: string | null;
+  /**
+   * LinkedIn username/ID (optional)
+   */
+  linkedinId?: string | null;
+  /**
+   * Twitter/X username (optional)
+   */
+  twitterId?: string | null;
+  /**
+   * Instagram username (optional)
+   */
+  instagramId?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -981,6 +1022,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'members';
+        value: number | Member;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1346,6 +1391,23 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "members_select".
+ */
+export interface MembersSelect<T extends boolean = true> {
+  sort?: T;
+  name?: T;
+  tag?: T;
+  imageUrl?: T;
+  description?: T;
+  githubId?: T;
+  linkedinId?: T;
+  twitterId?: T;
+  instagramId?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

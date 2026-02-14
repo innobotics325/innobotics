@@ -9,6 +9,7 @@ import { SITE_CONFIG } from '@/utilities/constants'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { ModeToggle } from '@/components/custom/mode-toggle'
+import { Stagger, StaggerItem } from '../motion/stagger'
 
 export function Navbar() {
   const pathname = usePathname()
@@ -73,24 +74,27 @@ export function Navbar() {
 
               <div className="grow flex flex-col justify-center px-8">
                 <nav className="flex flex-col">
-                  {SITE_CONFIG.menu.map((item, index) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className={cn(
-                        'group grid grid-cols-[40px_1fr] items-baseline py-8 border-b border-border/40 last:border-0 transition-all hover:pl-4',
-                        pathname === item.href ? 'text-primary' : 'text-muted-foreground',
-                      )}
-                    >
-                      <span className="text-xs font-mono opacity-40 group-hover:opacity-100 transition-opacity">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <span className="text-5xl md:text-6xl font-medium tracking-tighter transition-colors group-hover:text-primary">
-                        {item.name}
-                      </span>
-                    </Link>
-                  ))}
+                  <Stagger>
+                    {SITE_CONFIG.menu.map((item, index) => (
+                      <StaggerItem key={item.href}>
+                        <Link
+                          href={item.href}
+                          onClick={() => setIsOpen(false)}
+                          className={cn(
+                            'group grid grid-cols-[40px_1fr] items-baseline py-8 border-b border-border/40 last:border-0 transition-all hover:pl-4',
+                            pathname === item.href ? 'text-primary' : 'text-muted-foreground',
+                          )}
+                        >
+                          <span className="text-xs font-mono opacity-40 group-hover:opacity-100 transition-opacity">
+                            {String(index + 1).padStart(2, '0')}
+                          </span>
+                          <span className="text-5xl md:text-6xl font-medium tracking-tighter transition-colors group-hover:text-primary">
+                            {item.name}
+                          </span>
+                        </Link>
+                      </StaggerItem>
+                    ))}
+                  </Stagger>
                 </nav>
               </div>
 

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { FadeIn } from '@/components/custom/motion/fade-in'
+import { HighlightedText } from '../typography/highlighted-text'
 
 export function Hero() {
   return (
@@ -41,16 +42,22 @@ export function Hero() {
       <div className="container relative z-10 px-6 md:px-8 mx-auto max-w-7xl">
         <div className="max-w-4xl space-y-10">
           <FadeIn>
-            <h1 className="text-6xl md:text-8xl font-medium tracking-tight text-foreground/90 leading-[1.1]">
-              We build with <br />
-              <span className="text-primary italic font-semibold">purpose & craft.</span>
+            <h1 className="text-6xl md:text-8xl font-medium tracking-tight text-foreground/90 flex flex-wrap">
+              <HighlightedText text="<hlt>Innovation</hlt>" />
+              &nbsp;
+              <span className="italic font-serif">In</span>&nbsp;
+              <HighlightedText text="<hlt>Motion</hlt>" />
             </h1>
+            <p className="text-lg md:text-xl text-secondary-foreground leading-relaxed max-w-2xl font-light italic">
+              By the students, For the students
+            </p>
+            <p></p>
           </FadeIn>
 
           <FadeIn delay={0.2}>
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl font-light">
-              DoIT Club is an editorial tech community. We replace hype with depth, serving as a
-              quiet space for creators to craft meaningful work.
+              Welcome to InnoBotics Collective! A creative fusion of coding, robotics, and
+              innovation, this is the club where brains meet bots.
             </p>
           </FadeIn>
 

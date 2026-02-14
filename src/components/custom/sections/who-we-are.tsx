@@ -17,11 +17,13 @@ export default function WhoWeAre() {
       </div>
       <div className="md:col-span-8">
         <FadeIn delay={0.2}>
-          <p className="text-2xl md:text-4xl font-light leading-snug text-muted-foreground/90 tracking-tight">
-            We are a collective of{' '}
-            <span className="text-foreground italic font-serif font-normal">passionate makers</span>
-            , designers, and engineers dedicated to crafting the future of robotics through
-            collaboration and open-source principles.
+          <p className="text-2xl md:text-4xl font-light leading-snug text-muted-foreground/90 tracking-tight flex flex-wrap">
+            To cultivate a space where{' '}
+            <span className="text-foreground italic font-serif font-normal">
+              innovation, curiosity, and collaboration
+            </span>{' '}
+            thrive — turning ideas into intelligent machines and lines of code into real-world
+            impact.
           </p>
         </FadeIn>
       </div>

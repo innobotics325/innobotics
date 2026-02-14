@@ -27,7 +27,7 @@ export function ProjectCard({
 }: ProjectCardProps) {
   return (
     <Link href={`/projects/${slug}`} className="group block">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center border-t border-border/40 py-12 transition-all hover:bg-secondary/20 -mx-6 md:-mx-8 px-6 md:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center border-t border-border/40 py-12 transition-all hover:bg-secondary/20">
         {/* Index Column */}
         <div className="md:col-span-1 hidden md:block">
           <span className="text-xs font-mono text-muted-foreground/60">

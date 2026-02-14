@@ -22,3 +22,7 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
   const baseUrl = getClientSideURL()
   return cacheTag ? `${baseUrl}${url}?${cacheTag}` : `${baseUrl}${url}`
 }
+
+export const getGoogleDriveImageUrl = (imageId: string) => {
+  return `https://drive.google.com/uc?export=view&id=${imageId}`
+}

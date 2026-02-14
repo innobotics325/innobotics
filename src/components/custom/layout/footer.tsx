@@ -7,7 +7,7 @@ import { HighlightedText } from '@/components/custom/typography/highlighted-text
 export function Footer() {
   return (
     <footer className="bg-background border-t border-border/40 overflow-hidden">
-      <div className="container mx-auto px-6 md:px-8 py-24 md:py-32">
+      <div className="container px-6 md:px-8 py-24 md:py-32">
         <FadeIn>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 mb-24">
             {/* Brand Section */}
@@ -18,7 +18,7 @@ export function Footer() {
                   className="text-4xl md:text-5xl font-medium tracking-tighter leading-none block"
                 >
                   Inno
-                  <HighlightedText text="<hlt>botics</hlt>" />
+                  <HighlightedText text="<hlt>Botics</hlt>" />
                 </Link>
                 <p className="text-xl text-muted-foreground font-light leading-relaxed max-w-sm">
                   {SITE_CONFIG.description}
@@ -126,7 +126,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8 border-t border-border/40 pt-12 -mx-6 md:-mx-8 px-6 md:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8 border-t border-border/40 pt-12">
             <p className="text-xs font-mono text-muted-foreground/60 uppercase tracking-widest">
               &copy; {new Date().getFullYear()} {SITE_CONFIG.name}. Engineered for the future.
             </p>

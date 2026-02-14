@@ -22,7 +22,7 @@ const OPPORTUNITIES = [
   },
   {
     title: 'Mentorship Program',
-    company: 'DoIT Club',
+    company: 'InnoBotics Club',
     type: 'Mentorship',
     location: 'On-Campus',
     description: 'Get paired with senior students and alumni for career guidance.',

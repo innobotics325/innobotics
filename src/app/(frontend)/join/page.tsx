@@ -6,7 +6,7 @@ import { HighlightedText } from '@/components/custom/typography/highlighted-text
 
 export const metadata: Metadata = {
   title: 'Join Us',
-  description: 'Become a member of the DoIT Club and start your journey.',
+  description: 'Become a member of the InnoBotics Club and start your journey.',
 }
 
 const BENEFITS = [
@@ -32,7 +32,7 @@ const RECRUITMENT_PROCESS = [
   {
     step: '03',
     title: 'Orientation',
-    description: 'Welcome aboard! Get started with your first robotic system orientation.',
+    description: 'Welcome aboard! Get started with your first project orientation.',
   },
 ]
 
@@ -51,8 +51,8 @@ export default function JoinPage() {
                 <HighlightedText text="The <hlt>Journey</hlt>" />
               </h1>
               <p className="text-xl md:text-3xl font-light leading-relaxed text-muted-foreground max-w-2xl">
-                Join a community of 500+ students passionate about technology, robotics, and
-                building the future. We value passion over certificates.
+                Join a community of enthusisatic students passionate about technology, and building
+                the future. We value passion over certificates.
               </p>
             </div>
           </FadeIn>
@@ -65,7 +65,9 @@ export default function JoinPage() {
                   <h2 className="text-xs uppercase tracking-[0.3em] font-semibold text-muted-foreground">
                     The Why
                   </h2>
-                  <span className="text-xs font-mono text-muted-foreground/60">Why Join DoIT?</span>
+                  <span className="text-xs font-mono text-muted-foreground/60">
+                    Why Join InnoBotics?
+                  </span>
                 </div>
               </FadeIn>
 

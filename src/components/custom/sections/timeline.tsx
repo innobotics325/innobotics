@@ -4,33 +4,33 @@ import { FadeIn, FadeInStagger } from '@/components/custom/motion/fade-in'
 
 const HISTORY = [
   {
-    year: '2020',
+    year: '2026',
     title: 'Inception',
     description:
       'Founded by a group of computer science students with a vision to create a peer learning community.',
   },
-  {
-    year: '2021',
-    title: 'First Hackathon',
-    description:
-      'Organized our first inter-college hackathon with over 200 participants from across the region.',
-  },
-  {
-    year: '2022',
-    title: 'Industry Partnerships',
-    description:
-      'Established partnerships with leading tech companies to provide internships and mentorship.',
-  },
-  {
-    year: '2023',
-    title: 'National Recognition',
-    description: "Won the 'Best Student Chapter' award at the National Tech Summit.",
-  },
-  {
-    year: '2024',
-    title: 'Global Expansion',
-    description: 'Launched our open-source initiative contributing to global projects.',
-  },
+  // {
+  //   year: '2021',
+  //   title: 'First Hackathon',
+  //   description:
+  //     'Organized our first inter-college hackathon with over 200 participants from across the region.',
+  // },
+  // {
+  //   year: '2022',
+  //   title: 'Industry Partnerships',
+  //   description:
+  //     'Established partnerships with leading tech companies to provide internships and mentorship.',
+  // },
+  // {
+  //   year: '2023',
+  //   title: 'National Recognition',
+  //   description: "Won the 'Best Student Chapter' award at the National Tech Summit.",
+  // },
+  // {
+  //   year: '2024',
+  //   title: 'Global Expansion',
+  //   description: 'Launched our open-source initiative contributing to global projects.',
+  // },
 ]
 
 export function Timeline() {
@@ -48,7 +48,7 @@ export function Timeline() {
               <h3 className="text-3xl md:text-4xl font-medium tracking-tighter group-hover:text-primary transition-colors duration-500 leading-none">
                 {item.title}
               </h3>
-              <span className="text-[12px] font-mono tracking-[0.3em] uppercase text-muted-foreground/40">
+              <span className="text-[12px] font-mono tracking-[0.3em] uppercase text-muted-foreground/80">
                 {item.year}
               </span>
             </div>

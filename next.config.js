@@ -21,6 +21,9 @@ const nextConfig = {
       {
         hostname: 'images.unsplash.com',
       },
+      {
+        hostname: 'ik.imagekit.io',
+      },
     ],
   },
   webpack: (webpackConfig) => {

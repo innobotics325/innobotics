@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: EventPageProps): Promise<Meta
   }
 
   return {
-    title: `${event.title} | DoIT Club`,
+    title: `${event.title} | InnoBotics Club`,
     description: event.description,
   }
 }
@@ -212,7 +212,7 @@ export default async function EventPage({ params }: EventPageProps) {
 
       <EditorialCTA
         title="Impact the future."
-        description="Whether you're attending a session or joining a project, every step you take with Innobotics builds towards a smarter tomorrow."
+        description="Whether you're attending a session or joining a project, every step you take with InnoBotics builds towards a smarter tomorrow."
       />
     </div>
   )

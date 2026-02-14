@@ -40,7 +40,7 @@ export default function EventsPage() {
               </span>
             </div>
           </FadeIn>
-          {upcomingEvents.length > 0 ? (
+          {/* {upcomingEvents.length > 0 ? (
             <Stagger className="space-y-0">
               {upcomingEvents.map((event) => (
                 <StaggerItem key={event.slug}>
@@ -52,7 +52,7 @@ export default function EventsPage() {
             <p className="text-xl font-light text-muted-foreground py-12">
               No upcoming events at the moment.
             </p>
-          )}
+          )} */}
         </section>
 
         {pastEvents.length > 0 && (
@@ -76,7 +76,7 @@ export default function EventsPage() {
       </div>
       <EditorialCTA
         title="Impact the future."
-        description="Whether you're attending a session or joining a project, every step you take with Innobotics builds towards a smarter tomorrow."
+        description="Whether you're attending a session or joining a project, every step you take with InnoBotics builds towards a smarter tomorrow."
       />
     </div>
   )

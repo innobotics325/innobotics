@@ -220,7 +220,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
       <EditorialCTA
         title="Start <hlt>building</hlt> today."
-        description="Whether you're developing a new prototype or refining a complex system, Innobotics provides the community and infrastructure for your vision."
+        description="Whether you're developing a new prototype or refining a complex system, InnoBotics provides the community and infrastructure for your vision."
       />
     </div>
   )

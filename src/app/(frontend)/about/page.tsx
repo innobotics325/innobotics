@@ -9,7 +9,7 @@ import { HighlightedText } from '@/components/custom/typography/highlighted-text
 
 export const metadata: Metadata = {
   title: 'About Us',
-  description: 'Learn about our mission, history, and the team behind DoIT Club.',
+  description: 'Learn about our mission, history, and the team behind InnoBotics Club.',
 }
 
 export default function AboutPage() {
@@ -27,8 +27,7 @@ export default function AboutPage() {
                 <HighlightedText text="Our <hlt>Story</hlt>" />
               </h1>
               <p className="text-2xl md:text-3xl text-muted-foreground font-light leading-relaxed max-w-2xl">
-                Building a bridge between curiosity and complex robotics systems, one line of code
-                at a time.
+                Turning curiosity into real-world technology through learning, logic, and code
               </p>
             </div>
           </FadeIn>
@@ -41,7 +40,7 @@ export default function AboutPage() {
       <Mission />
 
       {/* Stats Section */}
-      <Stats />
+      {/* <Stats /> */}
 
       {/* History Section */}
       <section className="py-32 md:py-48 bg-background border-t border-border/40">
@@ -67,7 +66,7 @@ export default function AboutPage() {
       {/* Editorial CTA */}
       <EditorialCTA
         title="Meet the Minds"
-        description="Our community is built by the restless, the curious, and the dedicated. Meet the humans behind Innobotics."
+        description="Our community is built by the restless, the curious, and the dedicated. Meet the humans behind InnoBotics."
         buttonText="View the Team"
         buttonLink="/team"
       />

@@ -27,7 +27,7 @@ export function EventCard({
 }: EventCardProps) {
   return (
     <Link href={`/events/${slug}`} className="group block">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center border-t border-border/40 py-12 transition-all hover:bg-secondary/20 -mx-6 md:-mx-8 px-6 md:px-8 relative overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center border-t border-border/40 py-12 transition-all hover:bg-secondary/20 relative overflow-hidden">
         {/* Date Column */}
         <div className="md:col-span-1 hidden md:block">
           <div className="flex flex-col">

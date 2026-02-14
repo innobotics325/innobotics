@@ -2,27 +2,34 @@ import { Metadata } from 'next'
 import { FadeIn } from '@/components/custom/motion/fade-in'
 import { Stagger, StaggerItem } from '@/components/custom/motion/stagger'
 import { TeamCard } from '@/components/custom/cards/team-card'
-import { TEAM } from '@/data/team'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
 import { EditorialCTA } from '@/components/custom/sections/editorial-cta'
 import { HighlightedText } from '@/components/custom/typography/highlighted-text'
 
 export const metadata: Metadata = {
   title: 'Our Team',
-  description: 'Meet the core team behind DoIT Club.',
+  description: 'Meet the core team behind InnoBotics Club.',
 }
 
-export default function TeamPage() {
+export default async function TeamPage() {
+  const payload = await getPayload({ config: configPromise })
+  const team = await payload.find({
+    collection: 'members',
+    sort: 'sort',
+  })
+
   return (
     <div className="py-32">
       <div className="container mx-auto px-6 md:px-8">
         <FadeIn>
           <div className="max-w-3xl mb-24">
             <h1 className="text-5xl md:text-7xl font-medium tracking-tighter mb-8 leading-[0.9]">
-              <HighlightedText text="The <hlt>Humans</hlt>" />
+              <HighlightedText text="The <hlt>Brains</hlt>" />
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed">
               Meet the innovative minds and passionate makers building the future of robotics at
-              Innobotics.
+              InnoBotics.
             </p>
           </div>
         </FadeIn>
@@ -31,12 +38,14 @@ export default function TeamPage() {
           <h2 className="text-xs uppercase tracking-[0.3em] font-semibold text-muted-foreground">
             Core Team
           </h2>
-          <span className="text-xs font-mono text-muted-foreground/60">{TEAM.length} Members</span>
+          <span className="text-xs font-mono text-muted-foreground/60">
+            {team.totalDocs} Members
+          </span>
         </div>
 
         <Stagger className="space-y-0">
-          {TEAM.map((member, index) => (
-            <StaggerItem key={index}>
+          {team.docs.map((member, index) => (
+            <StaggerItem key={member.id}>
               <TeamCard index={index} {...member} />
             </StaggerItem>
           ))}
@@ -44,7 +53,7 @@ export default function TeamPage() {
       </div>
       <EditorialCTA
         title="Impact the future."
-        description="Every builder started with a single line of code. Join the minds behind Innobotics and start your journey today."
+        description="Every builder started with a single line of code. Join the minds behind InnoBotics and start your journey today."
       />
     </div>
   )

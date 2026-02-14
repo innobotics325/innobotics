@@ -8,7 +8,7 @@ import { HighlightedText } from '@/components/custom/typography/highlighted-text
 
 export const metadata: Metadata = {
   title: 'Projects',
-  description: 'Showcase of projects built by DoIT Club members.',
+  description: 'Showcase of projects built by InnoBotics Club members.',
 }
 
 export default function ProjectsPage() {
@@ -46,7 +46,7 @@ export default function ProjectsPage() {
       </div>
       <EditorialCTA
         title="Impact the future."
-        description="Whether you're attending a session or joining a project, every step you take with Innobotics builds towards a smarter tomorrow."
+        description="Whether you're attending a session or joining a project, every step you take with InnoBotics builds towards a smarter tomorrow."
       />
     </div>
   )
