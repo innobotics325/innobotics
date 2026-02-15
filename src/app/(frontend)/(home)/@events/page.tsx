@@ -1,11 +1,24 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
 import { FadeIn } from '@/components/custom/motion/fade-in'
-import { EVENTS } from '@/data/events'
 import { EventCard } from '@/components/custom/cards/event-card'
 
-export default function EventsSlot() {
-  const upcomingEvents = EVENTS.slice(0, 3)
+export default async function EventsSlot() {
+  const payload = await getPayload({ config: configPromise })
+  const { docs: events } = await payload.find({
+    collection: 'events',
+    where: {
+      featured: {
+        equals: true,
+      },
+    },
+    limit: 3,
+    sort: '-date',
+  })
+
+  const upcomingEvents = events
 
   return (
     <section className="py-24 border-t border-border/40">
@@ -27,7 +40,16 @@ export default function EventsSlot() {
 
         <div className="space-y-0">
           {upcomingEvents.map((event, index) => (
-            <EventCard key={event.slug} {...event} />
+            <EventCard
+              key={event.slug}
+              title={event.title}
+              description={event.description}
+              date={event.date}
+              location={event.location}
+              image={event.imageUrl}
+              category={typeof event.category === 'object' ? event.category?.title : ''}
+              slug={event.slug!}
+            />
           ))}
         </div>
 

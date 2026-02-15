@@ -44,13 +44,19 @@ export default async function ProjectsPage() {
           </span>
         </div>
 
-        <Stagger className="space-y-0">
-          {projects.docs.map((project, index) => (
-            <StaggerItem key={project.id}>
-              <ProjectCard index={index} data={project} />
-            </StaggerItem>
-          ))}
-        </Stagger>
+        {projects.docs.length > 0 ? (
+          <Stagger className="space-y-0">
+            {projects.docs.map((project, index) => (
+              <StaggerItem key={project.id}>
+                <ProjectCard index={index} data={project} />
+              </StaggerItem>
+            ))}
+          </Stagger>
+        ) : (
+          <p className="text-xl font-light text-muted-foreground py-12">
+            No projects at the moment. Stay tuned for more updates!
+          </p>
+        )}
       </div>
       <EditorialCTA
         title="Impact the future."

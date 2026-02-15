@@ -12,6 +12,7 @@ import { Members } from './collections/Members'
 import { Users } from './collections/Users'
 import { Projects } from './collections/Projects'
 import { Technologies } from './collections/Technologies'
+import { Events } from './collections/Events'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -63,7 +64,7 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || '',
     },
   }),
-  collections: [Pages, Posts, Projects, Technologies, Media, Categories, Users, Members],
+  collections: [Pages, Posts, Projects, Events, Technologies, Media, Categories, Users, Members],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [],
   plugins,

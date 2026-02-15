@@ -1,8 +1,9 @@
 import { Metadata } from 'next'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
 import { FadeIn } from '@/components/custom/motion/fade-in'
 import { Stagger, StaggerItem } from '@/components/custom/motion/stagger'
 import { EventCard } from '@/components/custom/cards/event-card'
-import { EVENTS } from '@/data/events'
 import { EditorialCTA } from '@/components/custom/sections/editorial-cta'
 import { HighlightedText } from '@/components/custom/typography/highlighted-text'
 
@@ -11,9 +12,23 @@ export const metadata: Metadata = {
   description: 'Upcoming workshops, seminars, and hackathons.',
 }
 
-export default function EventsPage() {
-  const upcomingEvents = EVENTS.filter((e) => new Date(e.date) > new Date())
-  const pastEvents = EVENTS.filter((e) => new Date(e.date) < new Date())
+export default async function EventsPage() {
+  const payload = await getPayload({ config: configPromise })
+  const { docs: events } = await payload.find({
+    collection: 'events',
+    depth: 1,
+    limit: 100,
+    sort: '-date',
+    where: {
+      _status: {
+        not_equals: 'draft',
+      },
+    },
+  })
+
+  const now = new Date()
+  const upcomingEvents = events.filter((e) => new Date(e.date) > now)
+  const pastEvents = events.filter((e) => new Date(e.date) <= now)
 
   return (
     <div className="py-32">
@@ -24,7 +39,8 @@ export default function EventsPage() {
               Our <HighlightedText text="<hlt>Sessions</hlt>" />
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed">
-              Join us for learning, networking, and building the next generation of robotics.
+              Join us for learning, networking, and building the next generation of Software
+              Systems.
             </p>
           </div>
         </FadeIn>
@@ -40,11 +56,19 @@ export default function EventsPage() {
               </span>
             </div>
           </FadeIn>
-          {/* {upcomingEvents.length > 0 ? (
+          {upcomingEvents.length > 0 ? (
             <Stagger className="space-y-0">
               {upcomingEvents.map((event) => (
                 <StaggerItem key={event.slug}>
-                  <EventCard {...event} />
+                  <EventCard
+                    title={event.title}
+                    description={event.description}
+                    date={event.date}
+                    location={event.location}
+                    image={event.imageUrl}
+                    category={typeof event.category === 'object' ? event.category?.title : ''}
+                    slug={event.slug!}
+                  />
                 </StaggerItem>
               ))}
             </Stagger>
@@ -52,7 +76,7 @@ export default function EventsPage() {
             <p className="text-xl font-light text-muted-foreground py-12">
               No upcoming events at the moment.
             </p>
-          )} */}
+          )}
         </section>
 
         {pastEvents.length > 0 && (
@@ -67,7 +91,15 @@ export default function EventsPage() {
             <Stagger className="space-y-0 opacity-80">
               {pastEvents.map((event) => (
                 <StaggerItem key={event.slug}>
-                  <EventCard {...event} />
+                  <EventCard
+                    title={event.title}
+                    description={event.description}
+                    date={event.date}
+                    location={event.location}
+                    image={event.imageUrl}
+                    category={typeof event.category === 'object' ? event.category?.title : ''}
+                    slug={event.slug!}
+                  />
                 </StaggerItem>
               ))}
             </Stagger>

@@ -70,6 +70,7 @@ export interface Config {
     pages: Page;
     posts: Post;
     projects: Project;
+    events: Event;
     technologies: Technology;
     media: Media;
     categories: Category;
@@ -95,6 +96,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
     technologies: TechnologiesSelect<false> | TechnologiesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
@@ -867,6 +869,68 @@ export interface Technology {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: number;
+  title: string;
+  /**
+   * Direct URL to the event image (e.g. Unsplash URL)
+   */
+  imageUrl: string;
+  /**
+   * Short summary for card views and hero section.
+   */
+  description: string;
+  date: string;
+  location: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  expectations?:
+    | {
+        item: string;
+        id?: string | null;
+      }[]
+    | null;
+  category: number | Category;
+  /**
+   * External registration URL (optional)
+   */
+  registrationLink?: string | null;
+  featured?: boolean | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Direct URL to the meta image for SEO/social sharing.
+     */
+    image?: string | null;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "members".
  */
 export interface Member {
@@ -1105,6 +1169,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects';
         value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: number | Event;
       } | null)
     | ({
         relationTo: 'technologies';
@@ -1376,6 +1444,40 @@ export interface ProjectsSelect<T extends boolean = true> {
   techStack?: T;
   githubUrl?: T;
   demoUrl?: T;
+  featured?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  generateSlug?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  imageUrl?: T;
+  description?: T;
+  date?: T;
+  location?: T;
+  content?: T;
+  expectations?:
+    | T
+    | {
+        item?: T;
+        id?: T;
+      };
+  category?: T;
+  registrationLink?: T;
   featured?: T;
   meta?:
     | T
@@ -1852,6 +1954,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'projects';
           value: number | Project;
+        } | null)
+      | ({
+          relationTo: 'events';
+          value: number | Event;
         } | null);
     global?: string | null;
     user?: (number | null) | User;
