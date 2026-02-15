@@ -5,10 +5,12 @@ import Image from 'next/image'
 import { Metadata } from 'next'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { PROJECTS } from '@/data/projects'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
 import { FadeIn } from '@/components/custom/motion/fade-in'
 import { HighlightedText } from '@/components/custom/typography/highlighted-text'
 import { EditorialCTA } from '@/components/custom/sections/editorial-cta'
+import RichText from '@/components/RichText'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -16,7 +18,17 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
-  const project = PROJECTS.find((p) => p.slug === slug)
+  const payload = await getPayload({ config: configPromise })
+  const { docs: projects } = await payload.find({
+    collection: 'projects',
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  })
+
+  const project = projects[0]
 
   if (!project) {
     return {
@@ -26,19 +38,38 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: project.title,
-    description: project.description,
+    description: project.summary,
   }
 }
 
 export async function generateStaticParams() {
-  return PROJECTS.map((project) => ({
+  const payload = await getPayload({ config: configPromise })
+  const projects = await payload.find({
+    collection: 'projects',
+    limit: 100,
+    select: {
+      slug: true,
+    },
+  })
+
+  return projects.docs.map((project) => ({
     slug: project.slug,
   }))
 }
 
 export default async function ProjectPage({ params }: PageProps) {
   const { slug } = await params
-  const project = PROJECTS.find((p) => p.slug === slug)
+  const payload = await getPayload({ config: configPromise })
+  const { docs: projects } = await payload.find({
+    collection: 'projects',
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  })
+
+  const project = projects[0]
 
   if (!project) {
     notFound()
@@ -62,9 +93,9 @@ export default async function ProjectPage({ params }: PageProps) {
                 Back to Selected Works
               </Link>
               <div className="h-px w-12 bg-border/40" />
-              <Badge className="bg-primary/5 text-primary border-primary/20 rounded-full px-4 font-mono text-[10px] uppercase tracking-widest">
+              {/* <Badge className="bg-primary/5 text-primary border-primary/20 rounded-full px-4 font-mono text-[10px] uppercase tracking-widest">
                 Experimental
-              </Badge>
+              </Badge> */}
             </div>
 
             <div className="max-w-5xl mb-24">
@@ -77,19 +108,25 @@ export default async function ProjectPage({ params }: PageProps) {
                   <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 font-semibold">
                     Status
                   </span>
-                  <p className="text-xl font-medium tracking-tight">Active Development</p>
+                  <p className="text-xl font-medium tracking-tight">
+                    {project.status || 'Active Development'}
+                  </p>
                 </div>
                 <div className="flex flex-col gap-1">
                   <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 font-semibold">
                     Field
                   </span>
-                  <p className="text-xl font-medium tracking-tight">Intelligent Systems</p>
+                  <p className="text-xl font-medium tracking-tight">
+                    {project.field || 'Intelligent Systems'}
+                  </p>
                 </div>
                 <div className="flex flex-col gap-1">
                   <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 font-semibold">
                     Tech Lead
                   </span>
-                  <p className="text-xl font-medium tracking-tight">Open Source</p>
+                  <p className="text-xl font-medium tracking-tight">
+                    {project.techLead || 'Open Source'}
+                  </p>
                 </div>
               </div>
             </div>
@@ -98,7 +135,7 @@ export default async function ProjectPage({ params }: PageProps) {
           <FadeIn delay={0.2}>
             <div className="relative aspect-video w-full rounded-3xl overflow-hidden border border-border/40 bg-secondary/20 mb-32 group">
               <Image
-                src={project.image}
+                src={project.imageUrl}
                 alt={project.title}
                 fill
                 className="object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
@@ -117,36 +154,33 @@ export default async function ProjectPage({ params }: PageProps) {
                   </h2>
                 </div>
                 <div className="prose prose-xl prose-primary dark:prose-invert max-w-none font-light leading-relaxed text-muted-foreground">
-                  <p className="text-foreground font-medium text-2xl mb-8 leading-snug">
-                    {project.description}
-                  </p>
-                  <p>
-                    Built with a focus on modularity and high-performance execution, this project
-                    represents a significant milestone in our collective research. We&apos;ve
-                    optimized every layer of the stack to ensure that the bridge between digital
-                    logic and physical reaction is as thin as possible.
-                  </p>
+                  <h2 className="text-foreground font-medium text-3xl mt-16 mb-8 tracking-tighter">
+                    {project.summary}
+                  </h2>
+                  <RichText
+                    data={project.narrative}
+                    enableGutter={false}
+                    className="text-muted-foreground font-normal text-lg mb-8 leading-snug"
+                  />
+
                   <h3 className="text-foreground font-medium text-3xl mt-16 mb-8 tracking-tighter">
                     Technical <span className="italic font-serif text-primary">Foundations</span>
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 not-prose">
-                    {['Modular Architecture', 'Real-time Processing', 'Adaptive Logic'].map(
-                      (feature, i) => (
-                        <div
-                          key={i}
-                          className="flex items-start gap-4 border-t border-border/20 pt-4"
-                        >
-                          <span className="text-xs font-mono text-primary pt-1.5">0{i + 1}</span>
-                          <div>
-                            <h4 className="font-medium mb-2 tracking-tight">{feature}</h4>
-                            <p className="text-sm text-muted-foreground font-light leading-relaxed">
-                              Designed for seamless integration with existing systems while
-                              maintaining peak operational efficiency.
-                            </p>
-                          </div>
+                    {project.technicalFoundations?.map((foundation, i) => (
+                      <div
+                        key={i}
+                        className="flex items-start gap-4 border-t border-border/20 pt-4"
+                      >
+                        <span className="text-xs font-mono text-primary pt-1.5">0{i + 1}</span>
+                        <div>
+                          <h4 className="font-medium mb-2 tracking-tight">{foundation.title}</h4>
+                          <p className="text-sm text-muted-foreground font-light leading-relaxed">
+                            {foundation.description}
+                          </p>
                         </div>
-                      ),
-                    )}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </FadeIn>
@@ -201,14 +235,17 @@ export default async function ProjectPage({ params }: PageProps) {
                       Tech Stack
                     </h4>
                     <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <div
-                          key={tag}
-                          className="flex items-center gap-2 text-xs font-mono text-primary/80 bg-primary/5 border border-primary/10 px-3 py-1 rounded-full"
-                        >
-                          <Code className="w-3 h-3" /> {tag}
-                        </div>
-                      ))}
+                      {project.techStack?.map((tech) => {
+                        const name = typeof tech === 'object' ? tech.name : ''
+                        return (
+                          <div
+                            key={name}
+                            className="flex items-center gap-2 text-xs font-mono font-medium text-primary bg-primary/10 border border-primary/10 px-3 py-1 rounded-full"
+                          >
+                            <Code className="w-3 h-3" /> {name}
+                          </div>
+                        )
+                      })}
                     </div>
                   </div>
                 </div>

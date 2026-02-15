@@ -7,11 +7,11 @@ import { ArrowRight } from 'lucide-react'
 interface ProjectCardProps {
   index: number
   title: string
-  description: string
-  image: string
-  tags: string[]
-  githubUrl?: string
-  demoUrl?: string
+  description?: string | null
+  image?: string | null
+  tags?: string[] | null
+  githubUrl?: string | null
+  demoUrl?: string | null
   slug: string
 }
 
@@ -39,7 +39,7 @@ export function ProjectCard({
         <div className="md:col-span-2 hidden lg:block">
           <div className="relative aspect-video rounded overflow-hidden border border-border/40 bg-secondary/20">
             <Image
-              src={image}
+              src={image || '/placeholder.jpg'}
               alt={title}
               fill
               className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
@@ -53,7 +53,7 @@ export function ProjectCard({
             {title}
           </h3>
           <div className="mt-4 flex flex-wrap gap-2">
-            {tags.slice(0, 3).map((tag) => (
+            {tags?.slice(0, 3).map((tag) => (
               <span
                 key={tag}
                 className="text-[10px] tracking-widest uppercase text-muted-foreground border border-border/40 px-2 py-0.5 rounded-full bg-secondary/10"

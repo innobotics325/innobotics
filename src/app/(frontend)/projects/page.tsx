@@ -2,7 +2,8 @@ import { Metadata } from 'next'
 import { FadeIn } from '@/components/custom/motion/fade-in'
 import { Stagger, StaggerItem } from '@/components/custom/motion/stagger'
 import { ProjectCard } from '@/components/custom/cards/project-card'
-import { PROJECTS } from '@/data/projects'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
 import { EditorialCTA } from '@/components/custom/sections/editorial-cta'
 import { HighlightedText } from '@/components/custom/typography/highlighted-text'
 
@@ -11,7 +12,14 @@ export const metadata: Metadata = {
   description: 'Showcase of projects built by InnoBotics Club members.',
 }
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const payload = await getPayload({ config: configPromise })
+  const projects = await payload.find({
+    collection: 'projects',
+    depth: 1,
+    limit: 100,
+  })
+
   return (
     <div className="py-32">
       <div className="container mx-auto px-6 md:px-8">
@@ -32,21 +40,30 @@ export default function ProjectsPage() {
             Project Archive
           </h2>
           <span className="text-xs font-mono text-muted-foreground/60">
-            {PROJECTS.length} Items
+            {projects.totalDocs} Items
           </span>
         </div>
 
         <Stagger className="space-y-0">
-          {PROJECTS.map((project, index) => (
-            <StaggerItem key={project.slug}>
-              <ProjectCard index={index} {...project} />
+          {projects.docs.map((project, index) => (
+            <StaggerItem key={project.id}>
+              <ProjectCard
+                index={index}
+                title={project.title}
+                description={project.summary}
+                image={project.imageUrl}
+                slug={project.slug}
+                tags={project.techStack?.map((tech) => (typeof tech === 'object' ? tech.name : ''))}
+                githubUrl={project.githubUrl}
+                demoUrl={project.demoUrl}
+              />
             </StaggerItem>
           ))}
         </Stagger>
       </div>
       <EditorialCTA
         title="Impact the future."
-        description="Whether you're attending a session or joining a project, every step you take with InnoBotics builds towards a smarter tomorrow."
+        description="Whether you're developing a new prototype or refining a complex system, InnoBotics provides the community and infrastructure for your vision."
       />
     </div>
   )
