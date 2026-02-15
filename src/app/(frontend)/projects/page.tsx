@@ -47,16 +47,7 @@ export default async function ProjectsPage() {
         <Stagger className="space-y-0">
           {projects.docs.map((project, index) => (
             <StaggerItem key={project.id}>
-              <ProjectCard
-                index={index}
-                title={project.title}
-                description={project.summary}
-                image={project.imageUrl}
-                slug={project.slug}
-                tags={project.techStack?.map((tech) => (typeof tech === 'object' ? tech.name : ''))}
-                githubUrl={project.githubUrl}
-                demoUrl={project.demoUrl}
-              />
+              <ProjectCard index={index} data={project} />
             </StaggerItem>
           ))}
         </Stagger>
