@@ -1,11 +1,18 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { FadeIn } from '@/components/custom/motion/fade-in'
-import { PROJECTS } from '@/data/projects'
 import { ProjectCard } from '@/components/custom/cards/project-card'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
 
-export default function FeaturedSlot() {
-  const featuredProjects = PROJECTS.slice(0, 3)
+export default async function FeaturedSlot() {
+  const payload = await getPayload({ config: configPromise })
+  const { docs: projects } = await payload.find({
+    collection: 'projects',
+    limit: 3,
+  })
+
+  const featuredProjects = projects
 
   return (
     <section className="py-24 border-t border-border/40">
@@ -28,7 +35,7 @@ export default function FeaturedSlot() {
         <div className="space-y-0">
           {featuredProjects.map((project, index) => (
             <FadeIn key={project.slug} delay={index * 0.1}>
-              <ProjectCard index={index} {...project} />
+              <ProjectCard index={index} data={project} />
             </FadeIn>
           ))}
         </div>

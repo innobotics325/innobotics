@@ -3,30 +3,22 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
+import { Project } from '@/payload-types'
 
 interface ProjectCardProps {
   index: number
   title: string
-  description?: string | null
-  image?: string | null
+  imageUrl?: string | null
   tags?: string[] | null
   githubUrl?: string | null
   demoUrl?: string | null
   slug: string
+  summary?: string
 }
 
-export function ProjectCard({
-  index,
-  title,
-  description,
-  image,
-  tags,
-  githubUrl,
-  demoUrl,
-  slug,
-}: ProjectCardProps) {
+export function ProjectCard({ data, index }: { data: Project } & { index: number }) {
   return (
-    <Link href={`/projects/${slug}`} className="group block">
+    <Link href={`/projects/${data.slug}`} className="group block">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center border-t border-border/40 py-12 transition-all hover:bg-secondary/20">
         {/* Index Column */}
         <div className="md:col-span-1 hidden md:block">
@@ -39,8 +31,8 @@ export function ProjectCard({
         <div className="md:col-span-2 hidden lg:block">
           <div className="relative aspect-video rounded overflow-hidden border border-border/40 bg-secondary/20">
             <Image
-              src={image || '/placeholder.jpg'}
-              alt={title}
+              src={data.imageUrl || '/placeholder.jpg'}
+              alt={data.title}
               fill
               className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
             />
@@ -50,24 +42,27 @@ export function ProjectCard({
         {/* Title & Tags Column */}
         <div className="md:col-span-3">
           <h3 className="text-2xl md:text-3xl font-medium group-hover:text-primary transition-colors leading-tight">
-            {title}
+            {data.title}
           </h3>
           <div className="mt-4 flex flex-wrap gap-2">
-            {tags?.slice(0, 3).map((tag) => (
-              <span
-                key={tag}
-                className="text-[10px] tracking-widest uppercase text-muted-foreground border border-border/40 px-2 py-0.5 rounded-full bg-secondary/10"
-              >
-                {tag}
-              </span>
-            ))}
+            {data.techStack?.slice(0, 3).map(
+              (tag) =>
+                typeof tag === 'object' && (
+                  <span
+                    key={tag.id}
+                    className="text-[10px] tracking-widest uppercase text-muted-foreground border border-border/40 px-2 py-0.5 rounded-full bg-secondary/10"
+                  >
+                    {tag.name}
+                  </span>
+                ),
+            )}
           </div>
         </div>
 
         {/* Description Column */}
         <div className="md:col-span-5">
           <p className="text-lg font-light text-muted-foreground group-hover:text-foreground/80 transition-colors line-clamp-2 leading-relaxed">
-            {description}
+            {data.summary}
           </p>
         </div>
 
