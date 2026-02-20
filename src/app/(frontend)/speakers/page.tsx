@@ -2,7 +2,8 @@ import { Metadata } from 'next'
 import { FadeIn } from '@/components/custom/motion/fade-in'
 import { Stagger, StaggerItem } from '@/components/custom/motion/stagger'
 import { SpeakerCard } from '@/components/custom/cards/speaker-card'
-import { SPEAKERS } from '@/data/speakers'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
 import { EditorialCTA } from '@/components/custom/sections/editorial-cta'
 import { HighlightedText } from '@/components/custom/typography/highlighted-text'
 
@@ -11,7 +12,14 @@ export const metadata: Metadata = {
   description: 'Meet the industry experts and thought leaders speaking at our events.',
 }
 
-export default function SpeakersPage() {
+export default async function SpeakersPage() {
+  const payload = await getPayload({ config: configPromise })
+  const speakers = await payload.find({
+    collection: 'speakers',
+    depth: 1,
+    limit: 100,
+  })
+
   return (
     <div className="py-32">
       <div className="container mx-auto px-6 md:px-8 ">
@@ -32,17 +40,23 @@ export default function SpeakersPage() {
             Guest Speakers
           </h2>
           <span className="text-xs font-mono text-muted-foreground/60">
-            {SPEAKERS.length} Voices
+            {speakers.totalDocs} Voices
           </span>
         </div>
 
-        <Stagger className="space-y-0">
-          {SPEAKERS.map((speaker, index) => (
-            <StaggerItem key={index}>
-              <SpeakerCard index={index} {...speaker} />
-            </StaggerItem>
-          ))}
-        </Stagger>
+        {speakers.docs.length > 0 ? (
+          <Stagger className="space-y-0">
+            {speakers.docs.map((speaker, index) => (
+              <StaggerItem key={speaker.id}>
+                <SpeakerCard index={index} data={speaker} />
+              </StaggerItem>
+            ))}
+          </Stagger>
+        ) : (
+          <p className="text-xl font-light text-muted-foreground py-12">
+            No speakers at the moment. Stay tuned for upcoming events!
+          </p>
+        )}
       </div>
       <EditorialCTA
         title="Join the <hlt>Voices</hlt>."

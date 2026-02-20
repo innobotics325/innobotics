@@ -4,27 +4,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Linkedin, Twitter } from 'lucide-react'
 
+import { Speaker } from '@/payload-types'
+
 interface SpeakerCardProps {
   index: number
-  name: string
-  role: string
-  company: string
-  topic: string
-  image: string
-  linkedin?: string
-  twitter?: string
+  data: Speaker
 }
 
-export function SpeakerCard({
-  index,
-  name,
-  role,
-  company,
-  topic,
-  image,
-  linkedin,
-  twitter,
-}: SpeakerCardProps) {
+export function SpeakerCard({ index, data }: SpeakerCardProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center border-t border-border/40 py-12 transition-all hover:bg-secondary/20 -mx-6 md:-mx-8 px-6 md:px-8 group">
       {/* Index Column */}
@@ -38,8 +25,8 @@ export function SpeakerCard({
       <div className="lg:col-span-1">
         <div className="relative w-16 h-16 rounded-full overflow-hidden border border-border/40 bg-secondary/20">
           <Image
-            src={image}
-            alt={name}
+            src={data.image}
+            alt={data.name}
             fill
             className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110"
           />
@@ -49,10 +36,10 @@ export function SpeakerCard({
       {/* Name & Company Column */}
       <div className="lg:col-span-3">
         <h3 className="text-2xl font-medium group-hover:text-primary transition-colors leading-tight">
-          {name}
+          {data.name}
         </h3>
         <p className="text-xs uppercase tracking-widest text-primary font-semibold mt-1">
-          {role} @ {company}
+          {data.role} @ {data.company}
         </p>
       </div>
 
@@ -63,16 +50,16 @@ export function SpeakerCard({
             Keynote Topic
           </p>
           <p className="text-xl md:text-2xl font-light text-foreground/80 group-hover:text-foreground transition-colors leading-relaxed tracking-tight italic font-serif">
-            &quot;{topic}&quot;
+            &quot;{data.topic}&quot;
           </p>
         </div>
       </div>
 
       {/* Socials Column */}
       <div className="lg:col-span-2 flex justify-start lg:justify-end gap-3">
-        {linkedin && (
+        {data.linkedin && (
           <Link
-            href={linkedin}
+            href={data.linkedin}
             target="_blank"
             className="text-muted-foreground hover:text-foreground transition-colors p-2 hover:bg-background rounded-full border border-transparent hover:border-border/40"
             aria-label="LinkedIn"
@@ -80,9 +67,9 @@ export function SpeakerCard({
             <Linkedin className="w-4 h-4" />
           </Link>
         )}
-        {twitter && (
+        {data.twitter && (
           <Link
-            href={twitter}
+            href={data.twitter}
             target="_blank"
             className="text-muted-foreground hover:text-foreground transition-colors p-2 hover:bg-background rounded-full border border-transparent hover:border-border/40"
             aria-label="Twitter"

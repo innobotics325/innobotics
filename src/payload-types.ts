@@ -71,6 +71,7 @@ export interface Config {
     posts: Post;
     projects: Project;
     events: Event;
+    speakers: Speaker;
     technologies: Technology;
     media: Media;
     categories: Category;
@@ -97,6 +98,7 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    speakers: SpeakersSelect<false> | SpeakersSelect<true>;
     technologies: TechnologiesSelect<false> | TechnologiesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
@@ -931,6 +933,31 @@ export interface Event {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "speakers".
+ */
+export interface Speaker {
+  id: number;
+  name: string;
+  role: string;
+  company: string;
+  topic: string;
+  /**
+   * Direct URL to the speaker photo (e.g. Unsplash URL)
+   */
+  image: string;
+  /**
+   * LinkedIn profile URL (optional)
+   */
+  linkedin?: string | null;
+  /**
+   * Twitter/X profile URL (optional)
+   */
+  twitter?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "members".
  */
 export interface Member {
@@ -1173,6 +1200,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'events';
         value: number | Event;
+      } | null)
+    | ({
+        relationTo: 'speakers';
+        value: number | Speaker;
       } | null)
     | ({
         relationTo: 'technologies';
@@ -1492,6 +1523,21 @@ export interface EventsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "speakers_select".
+ */
+export interface SpeakersSelect<T extends boolean = true> {
+  name?: T;
+  role?: T;
+  company?: T;
+  topic?: T;
+  image?: T;
+  linkedin?: T;
+  twitter?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
