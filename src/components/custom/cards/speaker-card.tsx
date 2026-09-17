@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Linkedin, Twitter } from 'lucide-react'
+import { FaLinkedin, FaTwitter } from 'react-icons/fa'
 
 import { Speaker } from '@/payload-types'
 
@@ -64,7 +64,7 @@ export function SpeakerCard({ index, data }: SpeakerCardProps) {
             className="text-muted-foreground hover:text-foreground transition-colors p-2 hover:bg-background rounded-full border border-transparent hover:border-border/40"
             aria-label="LinkedIn"
           >
-            <Linkedin className="w-4 h-4" />
+            <FaLinkedin className="w-4 h-4" />
           </Link>
         )}
         {data.twitter && (
@@ -74,7 +74,7 @@ export function SpeakerCard({ index, data }: SpeakerCardProps) {
             className="text-muted-foreground hover:text-foreground transition-colors p-2 hover:bg-background rounded-full border border-transparent hover:border-border/40"
             aria-label="Twitter"
           >
-            <Twitter className="w-4 h-4" />
+            <FaTwitter className="w-4 h-4" />
           </Link>
         )}
       </div>

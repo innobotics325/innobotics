@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { CONTACT_INFO, SITE_CONFIG } from '@/utilities/constants'
-import { Github, Twitter, Linkedin, Instagram } from 'lucide-react'
+import { FaGithub, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa'
 import { FadeIn } from '@/components/custom/motion/fade-in'
 import { HighlightedText } from '@/components/custom/typography/highlighted-text'
 
@@ -31,28 +31,28 @@ export function Footer() {
                   target="_blank"
                   className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
                 >
-                  <Github className="h-5 w-5" />
+                  <FaGithub className="h-5 w-5" />
                 </Link>
                 <Link
                   href={SITE_CONFIG.links.twitter}
                   target="_blank"
                   className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
                 >
-                  <Twitter className="h-5 w-5" />
+                  <FaTwitter className="h-5 w-5" />
                 </Link>
                 <Link
                   href={SITE_CONFIG.links.linkedin}
                   target="_blank"
                   className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
                 >
-                  <Linkedin className="h-5 w-5" />
+                  <FaLinkedin className="h-5 w-5" />
                 </Link>
                 <Link
                   href={SITE_CONFIG.links.instagram}
                   target="_blank"
                   className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
                 >
-                  <Instagram className="h-5 w-5" />
+                  <FaInstagram className="h-5 w-5" />
                 </Link>
               </div>
             </div>

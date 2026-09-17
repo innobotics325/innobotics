@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
-import { Github, ExternalLink, ArrowLeft, Code } from 'lucide-react'
+import { ExternalLink, ArrowLeft, Code } from 'lucide-react'
+import { FaGithub } from 'react-icons/fa'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
@@ -212,7 +213,7 @@ export default async function ProjectPage({ params }: PageProps) {
                       >
                         <Link href={project.githubUrl} target="_blank">
                           <span className="relative z-10 flex items-center gap-3">
-                            <Github className="w-5 h-5" /> View Source
+                            <FaGithub className="w-5 h-5" /> View Source
                           </span>
                         </Link>
                       </Button>

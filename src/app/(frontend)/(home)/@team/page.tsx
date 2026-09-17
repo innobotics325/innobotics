@@ -2,8 +2,9 @@ import { FadeIn } from '@/components/custom/motion/fade-in'
 import Link from 'next/link'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { ArrowRight, Github, Instagram, Linkedin, Twitter } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
+import { FaGithub, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa'
 
 export const revalidate = 3600
 
@@ -61,7 +62,7 @@ export default async function Team() {
                       className="text-muted-foreground hover:text-foreground transition-colors"
                       aria-label="GitHub"
                     >
-                      <Github />
+                      <FaGithub />
                     </Link>
                   )}
                   {member.linkedinId && (
@@ -71,7 +72,7 @@ export default async function Team() {
                       className="text-muted-foreground hover:text-foreground transition-colors"
                       aria-label="LinkedIn"
                     >
-                      <Linkedin />
+                      <FaLinkedin />
                     </Link>
                   )}
                   {member.twitterId && (
@@ -81,7 +82,7 @@ export default async function Team() {
                       className="text-muted-foreground hover:text-foreground transition-colors"
                       aria-label="Twitter"
                     >
-                      <Twitter />
+                      <FaTwitter />
                     </Link>
                   )}
                   {member.instagramId && (
@@ -91,7 +92,7 @@ export default async function Team() {
                       className="text-muted-foreground hover:text-foreground transition-colors"
                       aria-label="Instagram"
                     >
-                      <Instagram />
+                      <FaInstagram />
                     </Link>
                   )}
                 </div>

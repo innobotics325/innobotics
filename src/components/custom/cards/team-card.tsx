@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Github, Instagram, Linkedin, Twitter } from 'lucide-react'
+import { FaGithub, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa'
 import { socials } from '@/utilities/socials'
 
 interface TeamCardProps {
@@ -73,7 +73,7 @@ export function TeamCard({
             className="text-muted-foreground hover:text-foreground transition-colors p-2 hover:bg-background rounded-full border border-transparent hover:border-border/40"
             aria-label="GitHub"
           >
-            <Github className="w-4 h-4" />
+            <FaGithub className="w-4 h-4" />
           </Link>
         )}
         {linkedinId && (
@@ -83,7 +83,7 @@ export function TeamCard({
             className="text-muted-foreground hover:text-foreground transition-colors p-2 hover:bg-background rounded-full border border-transparent hover:border-border/40"
             aria-label="LinkedIn"
           >
-            <Linkedin className="w-4 h-4" />
+            <FaLinkedin className="w-4 h-4" />
           </Link>
         )}
         {twitterId && (
@@ -93,7 +93,7 @@ export function TeamCard({
             className="text-muted-foreground hover:text-foreground transition-colors p-2 hover:bg-background rounded-full border border-transparent hover:border-border/40"
             aria-label="Twitter"
           >
-            <Twitter className="w-4 h-4" />
+            <FaTwitter className="w-4 h-4" />
           </Link>
         )}
         {instagramId && (
@@ -103,7 +103,7 @@ export function TeamCard({
             className="text-muted-foreground hover:text-foreground transition-colors p-2 hover:bg-background rounded-full border border-transparent hover:border-border/40"
             aria-label="Instagram"
           >
-            <Instagram className="w-4 h-4" />
+            <FaInstagram className="w-4 h-4" />
           </Link>
         )}
       </div>
