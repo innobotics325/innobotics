@@ -14,6 +14,13 @@
     "ii": "cross-env NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace install",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "lint:fix": "cross-env NODE_OPTIONS=--no-deprecation next lint --fix",
+    "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
+    "migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create",
+    "migrate:down": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:down",
+    "migrate:fresh": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:fresh",
+    "migrate:refresh": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:refresh",
+    "migrate:reset": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:reset",
+    "migrate:status": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:status",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
@@ -22,6 +29,7 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.9.1",
     "@payloadcms/admin-bar": "3.89.0",
     "@payloadcms/db-postgres": "3.89.0",
     "@payloadcms/live-preview-react": "3.89.0",
@@ -57,7 +65,8 @@
     "react-hook-form": "7.88.0",
     "react-icons": "^5.7.0",
     "sharp": "0.35.4",
-    "tailwind-merge": "^3.7.0"
+    "tailwind-merge": "^3.7.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.7",
@@ -67,6 +76,7 @@
     "@testing-library/react": "16.3.3",
     "@types/escape-html": "^1.0.4",
     "@types/node": "22.20.3",
+    "@types/pg": "^8.23.1",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.1.1",
@@ -74,6 +84,7 @@
     "eslint": "^10.10.0",
     "eslint-config-next": "16.3.5",
     "jsdom": "30.0.1",
+    "pg": "^8.23.0",
     "playwright": "1.63.0",
     "playwright-core": "1.63.0",
     "postcss": "^8.5.28",

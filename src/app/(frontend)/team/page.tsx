@@ -7,6 +7,8 @@ import configPromise from '@payload-config'
 import { EditorialCTA } from '@/components/custom/sections/editorial-cta'
 import { HighlightedText } from '@/components/custom/typography/highlighted-text'
 
+export const revalidate = 600
+
 export const metadata: Metadata = {
   title: 'Our Team',
   description: 'Meet the core team behind InnoBotics Club.',

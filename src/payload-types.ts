@@ -77,6 +77,7 @@ export interface Config {
     categories: Category;
     users: User;
     members: Member;
+    memberships: Membership;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -104,6 +105,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     members: MembersSelect<false> | MembersSelect<true>;
+    memberships: MembershipsSelect<false> | MembershipsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -122,6 +124,9 @@ export interface Config {
   globals: {};
   globalsSelect: {};
   locale: null;
+  widgets: {
+    collections: CollectionsWidget;
+  };
   user: User;
   jobs: {
     tasks: {
@@ -725,9 +730,6 @@ export interface Form {
       )[]
     | null;
   submitButtonLabel?: string | null;
-  /**
-   * Choose whether to display an on-page message or redirect to a different page after they submit the form.
-   */
   confirmationType?: ('message' | 'redirect') | null;
   confirmationMessage?: {
     root: {
@@ -747,9 +749,6 @@ export interface Form {
   redirect?: {
     url: string;
   };
-  /**
-   * Send custom emails when the form submits. Use comma separated lists to send the same email to multiple recipients. To reference a value from this form, wrap that field's name with double curly brackets, i.e. {{firstName}}. You can use a wildcard {{*}} to output all data and {{*:table}} to format it as an HTML table in the email.
-   */
   emails?:
     | {
         emailTo?: string | null;
@@ -758,9 +757,6 @@ export interface Form {
         replyTo?: string | null;
         emailFrom?: string | null;
         subject: string;
-        /**
-         * Enter the message that should be sent in this email.
-         */
         message?: {
           root: {
             type: string;
@@ -996,6 +992,106 @@ export interface Member {
   createdAt: string;
 }
 /**
+ * Review and manage incoming student club membership requests and applications.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "memberships".
+ */
+export interface Membership {
+  id: number;
+  /**
+   * Current recruitment status for this application
+   */
+  status: 'pending' | 'under_review' | 'interview_scheduled' | 'accepted' | 'rejected';
+  /**
+   * Submission timestamp
+   */
+  appliedAt?: string | null;
+  /**
+   * Club admin or lead who reviewed this applicant
+   */
+  reviewedBy?: (number | null) | User;
+  /**
+   * Scheduled casual chat / interview date if applicable
+   */
+  interviewDate?: string | null;
+  /**
+   * Internal evaluation notes from recruitment team
+   */
+  reviewNotes?: string | null;
+  fullName: string;
+  email: string;
+  phone: string;
+  /**
+   * e.g. MCA, Department of Information Technology
+   */
+  department: string;
+  /**
+   * e.g. 2026, 1st (2026-2027)
+   */
+  year: string;
+  /**
+   * What interests you the most?
+   */
+  interests?:
+    | (
+        | 'Artificial Intelligence'
+        | 'Cybersecurity'
+        | 'Web Development'
+        | 'App Development'
+        | 'Internet of Things'
+        | 'Robotics'
+        | 'Graphic Design'
+        | 'Research and Innovation'
+        | 'Programming'
+        | 'Photography'
+        | 'Other'
+      )[]
+    | null;
+  /**
+   * What skills do you currently have?
+   */
+  skills: string;
+  /**
+   * Teamwork skills self-rating (1 to 5)
+   */
+  teamworkRating?: number | null;
+  /**
+   * Have you been a member of any club or organisation before?
+   */
+  hasPreviousClubExperience?: boolean | null;
+  /**
+   * If yes, mention your role and responsibilities
+   */
+  previousClubExperienceDetails?: string | null;
+  /**
+   * Why do you want to join the Innobotics Club?
+   */
+  reasonToJoin: string;
+  /**
+   * What do you hope to learn from Innobotics Club?
+   */
+  learningGoals?: string | null;
+  /**
+   * How many hours per week can you dedicate to club activities?
+   */
+  weeklyCommitment?: string | null;
+  /**
+   * Are you willing to participate in workshops, competitions, and events organized by the club?
+   */
+  willingToParticipateInEvents?: boolean | null;
+  /**
+   * If selected, how would you contribute to the club's growth?
+   */
+  contribution?: string | null;
+  /**
+   * Confirmed that the information provided is correct and willing to actively participate.
+   */
+  confirmedInformation: boolean;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
@@ -1224,6 +1320,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'members';
         value: number | Member;
+      } | null)
+    | ({
+        relationTo: 'memberships';
+        value: number | Membership;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1707,6 +1807,35 @@ export interface MembersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "memberships_select".
+ */
+export interface MembershipsSelect<T extends boolean = true> {
+  status?: T;
+  appliedAt?: T;
+  reviewedBy?: T;
+  interviewDate?: T;
+  reviewNotes?: T;
+  fullName?: T;
+  email?: T;
+  phone?: T;
+  department?: T;
+  year?: T;
+  interests?: T;
+  skills?: T;
+  teamworkRating?: T;
+  hasPreviousClubExperience?: T;
+  previousClubExperienceDetails?: T;
+  reasonToJoin?: T;
+  learningGoals?: T;
+  weeklyCommitment?: T;
+  willingToParticipateInEvents?: T;
+  contribution?: T;
+  confirmedInformation?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
@@ -1979,6 +2108,16 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

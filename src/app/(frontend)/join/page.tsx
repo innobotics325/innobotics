@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { CheckCircle, ArrowRight } from 'lucide-react'
 import { FadeIn } from '@/components/custom/motion/fade-in'
 import { Button } from '@/components/ui/button'
@@ -131,13 +132,16 @@ export default function JoinPage() {
 
                   <FadeIn delay={0.4} className="mt-20">
                     <Button
+                      asChild
                       size="lg"
                       className="rounded-full px-12 py-8 text-xl font-light tracking-tight hover:scale-105 transition-all group overflow-hidden relative"
                     >
-                      <span className="relative z-10 flex items-center gap-3">
-                        Launch Application{' '}
-                        <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
-                      </span>
+                      <Link href="/membership">
+                        <span className="relative z-10 flex items-center gap-3">
+                          Launch Application{' '}
+                          <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                        </span>
+                      </Link>
                     </Button>
                   </FadeIn>
                 </div>
