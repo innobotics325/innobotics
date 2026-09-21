@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import { FaGithub, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa'
 
-export const revalidate = 3600
+export const revalidate = 600
 
 export default async function Team() {
   const payload = await getPayload({ config: configPromise })
