@@ -25,58 +25,73 @@ export const Members: CollectionConfig = {
       },
     },
     {
-      name: 'name',
-      type: 'text',
-      required: true,
-    },
-    {
-      name: 'tag',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'Role or designation (e.g. President, Tech Lead)',
-      },
-    },
-    {
-      name: 'imageUrl',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'Image URL for the profile image',
-      },
-    },
-    {
-      name: 'description',
-      type: 'textarea',
-      required: true,
-    },
-    {
-      name: 'githubId',
-      type: 'text',
-      admin: {
-        description: 'GitHub username (optional)',
-      },
-    },
-    {
-      name: 'linkedinId',
-      type: 'text',
-      admin: {
-        description: 'LinkedIn username/ID (optional)',
-      },
-    },
-    {
-      name: 'twitterId',
-      type: 'text',
-      admin: {
-        description: 'Twitter/X username (optional)',
-      },
-    },
-    {
-      name: 'instagramId',
-      type: 'text',
-      admin: {
-        description: 'Instagram username (optional)',
-      },
+      type: 'tabs',
+      tabs: [
+        {
+          label: 'General',
+          fields: [
+            {
+              name: 'name',
+              type: 'text',
+              required: true,
+            },
+            {
+              name: 'tag',
+              type: 'text',
+              required: true,
+              admin: {
+                description: 'Role or designation (e.g. President, Tech Lead)',
+              },
+            },
+            {
+              name: 'imageUrl',
+              type: 'text',
+              required: true,
+              admin: {
+                description: 'Image URL for the profile image',
+              },
+            },
+            {
+              name: 'description',
+              type: 'textarea',
+              required: true,
+            },
+          ],
+        },
+        {
+          label: 'Socials',
+          fields: [
+            {
+              name: 'githubId',
+              type: 'text',
+              admin: {
+                description: 'GitHub username (optional)',
+              },
+            },
+            {
+              name: 'linkedinId',
+              type: 'text',
+              admin: {
+                description: 'LinkedIn username/ID (optional)',
+              },
+            },
+            {
+              name: 'twitterId',
+              type: 'text',
+              admin: {
+                description: 'Twitter/X username (optional)',
+              },
+            },
+            {
+              name: 'instagramId',
+              type: 'text',
+              admin: {
+                description: 'Instagram username (optional)',
+              },
+            },
+          ],
+        },
+      ],
     },
   ],
 }
